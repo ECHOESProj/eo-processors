@@ -11,7 +11,9 @@ RUN mkdir -p /root/.ssh
 COPY ./resources/keys/id_rsa /root/.ssh
 RUN chmod 0700 /root/.ssh && \
     ssh-keyscan github.com > /root/.ssh/known_hosts && \
-    chmod 600 /root/.ssh/id_rsa
+    chmod 600 /root/.ssh/id_rsa \
+
+COPY ./resources/eoconfig/creodias.yaml /root/eoconfig/creodias.yaml
 
 RUN pip3 install git+ssh://git@github.com/ECHOESProj/eo-io.git
 
