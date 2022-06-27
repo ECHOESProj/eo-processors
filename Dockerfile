@@ -1,7 +1,11 @@
 FROM osgeo/gdal:ubuntu-small-latest
 
-RUN apt-get update
-RUN apt-get -y install python3-pip
+ENV TZ=Europe/Dublin
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
+    echo $TZ > /etc/timezone && \
+    apt-get update && \
+    apt-get install -y python3-pip python3-gdal binutils netcdf-bin libproj-dev gdal-bin libnetcdf-dev \
+    libhdf5-serial-dev libproj-dev libgeos-dev proj-data proj-bin docker.io git \
 
 COPY ./requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
@@ -15,7 +19,8 @@ RUN chmod 0700 /root/.ssh && \
 
 COPY ./resources/eoconfig/creodias.yaml /root/eoconfig/creodias.yaml
 
-RUN pip3 install git+ssh://git@github.com/ECHOESProj/eo-io.git
+RUN pip3 install git+ssh://git@github.com/ECHOESProj/eo-io@main#egg=eo-io && \
+    pip3 install git+https://github.com/dcs4cop/xcube.git
 
 COPY eo_custom_scripts /app/eo_custom_scripts
 WORKDIR /app/
