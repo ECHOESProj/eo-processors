@@ -9,15 +9,16 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 
 # Authorize SSH Host
 RUN mkdir -p /root/.ssh
-COPY credentials/id_rsa /root/.ssh
+COPY credentials/config /root/.ssh/
+COPY credentials/*_rsa /root/.ssh/
+COPY credentials/config_eo_service.yml /root/config_eo_service.yml
 RUN chmod 0700 /root/.ssh && \
     ssh-keyscan github.com > /root/.ssh/known_hosts && \
-    chmod 600 /root/.ssh/id_rsa
+    chmod 600 /root/.ssh/config && \
+    chmod 600 /root/.ssh/*_rsa
 
-COPY credentials/config_eo_service.yml /root/config_eo_service.yml
-
-RUN pip3 install git+ssh://git@github.com/ECHOESProj/eo-io@main#egg=eo-io && \
-    pip3 install git+ssh://git@github.com/ECHOESProj/eoian@main#egg=eoian && \
+RUN pip3 install git+ssh://github-eo-io/ECHOESProj/eo-io && \
+    pip3 install git+ssh://github-eoian/ECHOESProj/eoian && \
     pip3 install git+https://github.com/dcs4cop/xcube.git
 
 COPY requirements.txt /tmp/

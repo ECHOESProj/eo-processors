@@ -3,11 +3,8 @@ __pycache__/
 *$py.class
 .idea
 .venv
-credentials/
+credentials/*
+!credentials/config
+id_rsa
 notebooks/
-eo-io/config/*
-!eo-io/config/
-!eo-io/config/example.yaml
 !.gitignore
-deploy.zip
-resources/keys/id_rsa
