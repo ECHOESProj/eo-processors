@@ -3,6 +3,7 @@ __pycache__/
 *$py.class
 .idea
 .venv
+env_file
 credentials/*
 !credentials/config
 id_rsa
