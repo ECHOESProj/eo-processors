@@ -1,28 +1,26 @@
 # pipenv lock --pre --clear
 Bottleneck
 Shapely
-# aiobotocore==2.3.2
-# botocore==1.24.21
 click
+defusedxml
+docker
+docker-compose
 eodag # include boto3 if this is removed
 netCDF4
 numpy==1.22.4
+owslib
 pandas
+pipdeptree
+pyorbital
+pyproj==3.2.1
 pytest
+python-geotiepoints
 pyyaml
 rasterio
 rioxarray
 s3fs
 satpy[msi_safe,sar_c]
-pyorbital
-pyproj==3.2.1
-owslib
 scikit-learn
 sentinelhub
 shapely
 xarray
-python-geotiepoints
-defusedxml
-pipdeptree
-docker
-docker-compose

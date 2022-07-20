@@ -110,7 +110,8 @@ def main(area_wkt, date1, date2):
     band_nums = list(range(2, 9))
     # band_nums.remove(9)
     # band_nums.remove(10)
-    band_names = [f'B0{i}' for i in band_nums if i != 9] + ['B8A', 'CLM', 'SCL']
+    # band_names = [f'B0{i}' for i in band_nums if i != 9] + ['B8A', 'CLM', 'SCL']
+    band_names = [f'B0{i}' for i in band_nums[:1] if i != 9] + ['B8A', 'CLM', 'SCL']
 
     spatial_res = 1 * 0.00018  # = 10.038 meters in degrees
 
