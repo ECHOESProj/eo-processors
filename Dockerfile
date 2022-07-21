@@ -29,4 +29,4 @@ RUN pip3 install -r /tmp/requirements.txt
 COPY ./eo_processors /app/eo-processors
 WORKDIR /app/eo-processors
 
-#ENTRYPOINT  [ "python3", "-m" ]
+ENTRYPOINT  [ "python3", "-m" ]
