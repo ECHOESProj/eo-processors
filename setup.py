@@ -9,13 +9,15 @@ def read_requirements(file):
 inst_reqs = read_requirements("requirements.txt")
 
 setup(
-    name='eo_pipelines',
-    version='0.1',
-    packages=find_packages(exclude=["tests"]),
-    inst_reqs=inst_reqs,
-    url='',
-    license='',
-    author='John Lavelle',
-    author_email='jlavelle@compass.ie',
-    description='EO products'
+    name='eo_processors',
+    version='0.1.0',
+    py_modules=['eo_processors'],
+    install_requires=inst_reqs,
+    entry_points={
+        'console_scripts': [
+            'change_detection_s2_pca = change_detection_s2_pca:cli',
+            'ndvi_satpy = ndvi_satpy:cli',
+        ],
+    },
 )
+

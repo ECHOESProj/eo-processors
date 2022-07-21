@@ -16,6 +16,7 @@ from shapely import wkt
 from sentinelhub import CRS, BBox
 from os.path import join
 from dataclasses import dataclass
+from eo_processors.utils.decorators import clis
 
 import time
 
@@ -103,7 +104,7 @@ def norm(x):
     return x / np.sqrt((x ** 2).sum())
 
 
-def main(area_wkt, date1, date2):
+def get_change(area_wkt, date1, date2):
     area = wkt.loads(area_wkt)
     bbox = BBox(bbox=area.bounds, crs=CRS.WGS84)
 
@@ -111,7 +112,7 @@ def main(area_wkt, date1, date2):
     # band_nums.remove(9)
     # band_nums.remove(10)
     band_names = [f'B0{i}' for i in band_nums if i != 9] + ['B8A', 'CLM', 'SCL']
-    # band_names = [f'B0{i}' for i in band_nums[:1] if i != 9] + ['B8A', 'CLM', 'SCL']
+    # band_names = [f'B0{i}' for i in band_nums[:1] if i != 9] + ['B8A', 'CLM', 'SCL']  # for quick testing
 
     spatial_res = 1 * 0.00018  # = 10.038 meters in degrees
 
@@ -156,7 +157,7 @@ def cli(area_wkt: str, date1: str, date2: str) -> None:
     """
     """
 
-    change = main(area_wkt, date1, date2)
+    change = get_change(area_wkt, date1, date2)
     metadata = Metadata(area_wkt, 'change', 'sentinel2', 'msi', 'S2L2A', date1, date2)
     store = eo_io.store_dataset.store(change, metadata)
     store.to_tiff()
