@@ -3,8 +3,6 @@ Bottleneck
 Shapely
 click
 defusedxml
-docker
-docker-compose
 eodag # include boto3 if this is removed
 netCDF4
 numpy==1.22.4

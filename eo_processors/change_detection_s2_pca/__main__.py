@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+#  Copyright (c) 2022.
+#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
+
+
 from os import environ
 import xarray as xr
 import numpy as np
@@ -16,7 +20,8 @@ from shapely import wkt
 from sentinelhub import CRS, BBox
 from os.path import join
 from dataclasses import dataclass
-from eo_processors.utils.decorators import clis
+from eoian import command_line_interface
+
 
 import time
 
@@ -149,18 +154,14 @@ class Metadata(eo_io.store_dataset.BaseMetadata):
                     f'{self.date1}_{self.date2}')
 
 
-@click.command()
-@click.argument('area_wkt')
-@click.argument('date1')
-@click.argument('date2')
+@command_line_interface.to_storage_cli
 def cli(area_wkt: str, date1: str, date2: str) -> None:
     """
     """
 
     change = get_change(area_wkt, date1, date2)
     metadata = Metadata(area_wkt, 'change', 'sentinel2', 'msi', 'S2L2A', date1, date2)
-    store = eo_io.store_dataset.store(change, metadata)
-    store.to_tiff()
+    return change, metadata
 
 
 if __name__ == '__main__':

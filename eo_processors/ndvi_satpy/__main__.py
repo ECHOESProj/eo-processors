@@ -7,7 +7,7 @@ from os.path import dirname
 from satpy import Scene, find_files_and_readers
 from shapely import wkt
 from eoian import utils
-from eo_processors.utils.decorators import clis
+from eoian import command_line_interface
 
 
 def main(input_file: str, area_wkt: str) -> "Dataset":
@@ -32,7 +32,7 @@ def main(input_file: str, area_wkt: str) -> "Dataset":
     return s
 
 
-@clis.create_cli_processing_chain(to_zarr=False)
+@command_line_interface.processing_chain_cli(to_zarr=False)
 def cli(input_file: str, area_wkt: str):
     """
 
