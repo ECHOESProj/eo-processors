@@ -34,34 +34,6 @@ def main(input_file: str, area_wkt: str) -> "Dataset":
 
 @command_line_interface.processing_chain_cli(to_zarr=False)
 def cli(input_file: str, area_wkt: str):
-    """
-
-    As decorators can be confusing, here is the equivalent code without a decorator:
-        import click
-        from eoian import ProcessingChain
-
-        @click.command()
-        @click.argument('instrument')
-        @click.argument('area_wkt')
-        @click.argument('start')
-        @click.argument('stop')
-        @click.option('--cloud_cover', default=None)
-        @click.option('--graph_path', default=None)
-        def cli(instrument: str, area_wkt: str, start: str, stop: str, cloud_cover, graph_path) -> None:
-            # :param instrument: The name of the instrument (e.g. S1_SAR_GRD)
-            # :param processing_module: The processor to use.
-            # :param area_wkt: The WKT string, which is the polygon of the ROI
-            # :param start: The start date of the search in the format YYYY-MM-DD
-            # :param stop: The stop date of the search in the format YYYY-MM-DD
-            # :param cloud_cover: Threshold for allowed cloud cover
-            # :return:
-            click.echo()
-            processing_chain = ProcessingChain(instrument, main, area_wkt, start, stop,
-                                               cloud_cover=cloud_cover, graph_path=graph_path)
-            for d in processing_chain:
-                d.to_tiff()
-                d.metadata_to_json()
-    """
     return main(input_file, area_wkt)
 
 
