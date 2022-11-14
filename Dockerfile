@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
     echo $TZ > /etc/timezone && \
     apt-get update && \
     apt-get install -y python3-pip python3-gdal binutils netcdf-bin libproj-dev gdal-bin libnetcdf-dev \
-    libhdf5-serial-dev libproj-dev libgeos-dev proj-data proj-bin docker.io git
+    libhdf5-serial-dev libproj-dev libgeos-dev proj-data proj-bin docker.io git gettext-base
 
 # Authorize SSH Host
 RUN mkdir -p /root/.ssh
@@ -29,4 +29,6 @@ RUN pip3 install -r /tmp/requirements.txt
 COPY ./eo_processors /app/eo-processors
 WORKDIR /app/eo-processors
 
+CMD envsubst < /root/config_eo_service.yml > /root/config_eo_service_tmp.yml && \
+    mv /root/config_eo_service_tmp.yml /root/config_eo_service.yml
 ENTRYPOINT  [ "python3", "-m" ]

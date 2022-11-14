@@ -7,5 +7,6 @@ env_file
 credentials/*
 !credentials/config
 id_rsa
-notebooks/
+resources
+change_detection_s1
 !.gitignore

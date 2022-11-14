@@ -140,7 +140,7 @@ def get_change(area_wkt, date1, date2):
 
 
 @dataclass
-class Metadata(eo_io.store_dataset.BaseMetadata):
+class Metadata(eo_io.metadata.BaseMetadata):
     area_wkt: str
     name: str
     platform: str
@@ -149,19 +149,24 @@ class Metadata(eo_io.store_dataset.BaseMetadata):
     date1: str
     date2: str
 
-    def get_path(self):
+    def get_path(self) -> str:
         return join(self.area_wkt, self.name, self.platform, self.instrument, self.processingLevel,
                     f'{self.date1}_{self.date2}')
 
 
-@command_line_interface.to_storage_cli
+@click.command()
+@click.argument('area_wkt')
+@click.argument('date1')
+@click.argument('date2')
 def cli(area_wkt: str, date1: str, date2: str) -> None:
     """
     """
 
     change = get_change(area_wkt, date1, date2)
     metadata = Metadata(area_wkt, 'change', 'sentinel2', 'msi', 'S2L2A', date1, date2)
-    return change, metadata
+    store = eo_io.store_dataset.store(change, metadata)
+    store.to_tiff()
+
 
 
 if __name__ == '__main__':

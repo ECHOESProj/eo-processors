@@ -7,6 +7,10 @@ from os.path import dirname
 from satpy import Scene, find_files_and_readers
 from shapely import wkt
 from eoian import utils
+from eoian import ProcessingChain
+
+import click
+
 from eoian import command_line_interface
 
 
@@ -32,9 +36,26 @@ def main(input_file: str, area_wkt: str) -> "Dataset":
     return s
 
 
-@command_line_interface.processing_chain_cli(to_zarr=False)
-def cli(input_file: str, area_wkt: str):
-    return main(input_file, area_wkt)
+# @command_line_interface.processing_chain_cli(to_zarr=False)
+@click.command()
+@click.argument('instrument')
+@click.argument('area_wkt')
+@click.argument('start')
+@click.argument('stop')
+@click.option('--cloud_cover', default=None)
+@click.option('--graph_path', default=None)
+def cli(instrument: str, area_wkt: str, start: str, stop: str, cloud_cover: float, graph_path: str):
+    click.echo()
+    processing_chain = ProcessingChain(instrument,
+                                       area_wkt,
+                                       start,
+                                       stop,
+                                       processing_func=main,
+                                       cloud_cover=cloud_cover,
+                                       graph_path=graph_path)
+    for d in processing_chain:
+        d.to_tiff()
+        d.metadata_to_json()
 
 
 if __name__ == '__main__':

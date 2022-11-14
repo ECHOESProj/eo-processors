@@ -26,9 +26,9 @@ Ncomps = 64
 
 import click
 from eoian import ProcessingChain
+from xarray import Dataset
 
-
-def process(input_file, area):
+def process(input_file, area) -> Dataset:
     files = find_files_and_readers(base_dir=dirname(input_file), reader='sar-c_safe')
     scn = Scene(filenames=files)
     hh_id = DataQuery(name="measurement", polarization="vv")
