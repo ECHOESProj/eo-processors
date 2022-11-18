@@ -6,6 +6,7 @@ __pycache__/
 env_file
 credentials/*
 !credentials/config
+!credentials/config_eo_service.yml
 id_rsa
 resources
 change_detection_s1

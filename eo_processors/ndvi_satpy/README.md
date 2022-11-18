@@ -1,8 +1,7 @@
 # NDVI using Sentinel-2
 
-This processor computes the NDVI from the Sentinel-2 SAFE files 
+This processor computes the NDVI from the Sentinel-2 SAFE files
 stored in the CREODIAS object store.
-
 
 ## Usage
 

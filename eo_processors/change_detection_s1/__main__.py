@@ -1,24 +1,13 @@
-
-#  Copyright (c) 2022.
-#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
-
-import pickle
 from os.path import dirname
 
-import dask
 import numpy as np
-import xarray as xr
+# import geopandas as gpd
+import pylab as plt
 from satpy import Scene, find_files_and_readers
 from satpy.dataset import DataQuery
-from scipy import fftpack
-from sklearn.decomposition import IncrementalPCA, PCA
-# import geopandas as gpd
-from eoian import command_line_interface
-import pylab as plt
 
 sub_size = 256
 Ncomps = 64
-
 
 # df_europe = gpd.read_file("eoian/data/europe_coastline/Europe_coastline_poly.shp")
 # df_europe.intersection(b).area.sum() / shape(b).area
@@ -27,6 +16,7 @@ Ncomps = 64
 import click
 from eoian import ProcessingChain
 from xarray import Dataset
+
 
 def process(input_file, area) -> Dataset:
     files = find_files_and_readers(base_dir=dirname(input_file), reader='sar-c_safe')
@@ -64,7 +54,7 @@ def cli(instrument: str, area_wkt: str, start: str, stop: str, cloud_cover, grap
         plt.imshow(np.log10(res.dataset['measurement']))
         plt.show()
         break
-        
+
         # d.to_tiff()
         # d.metadata_to_json()
 

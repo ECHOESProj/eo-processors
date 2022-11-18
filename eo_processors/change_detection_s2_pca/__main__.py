@@ -1,29 +1,23 @@
 #!/usr/bin/env python3
 
-#  Copyright (c) 2022.
-#  The ECHOES Project (https://echoesproj.eu/) / Compass Informatics
-
-
-from os import environ
-import xarray as xr
-import numpy as np
-# from matplotlib import pyplot as plt
-from xcube_sh.observers import Observers
-from xcube_sh.config import CubeConfig
-from zarr.errors import GroupNotFoundError
-from xcube_sh.cube import open_cube
-import eo_io
-from sklearn.decomposition import SparsePCA
-from sklearn.preprocessing import StandardScaler
-import click
-from shapely import wkt
-from sentinelhub import CRS, BBox
-from os.path import join
-from dataclasses import dataclass
-from eoian import command_line_interface
-
 
 import time
+from dataclasses import dataclass
+from os.path import join
+
+import click
+import numpy as np
+import xarray as xr
+from sentinelhub import CRS, BBox
+from shapely import wkt
+from sklearn.decomposition import SparsePCA
+from sklearn.preprocessing import StandardScaler
+from xcube_sh.config import CubeConfig
+from xcube_sh.cube import open_cube
+# from matplotlib import pyplot as plt
+from xcube_sh.observers import Observers
+
+import eo_io
 
 MAX_ITER = 5
 
@@ -166,7 +160,6 @@ def cli(area_wkt: str, date1: str, date2: str) -> None:
     metadata = Metadata(area_wkt, 'change', 'sentinel2', 'msi', 'S2L2A', date1, date2)
     store = eo_io.store_dataset.store(change, metadata)
     store.to_tiff()
-
 
 
 if __name__ == '__main__':

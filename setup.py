@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 def read_requirements(file):
@@ -20,4 +20,3 @@ setup(
         ],
     },
 )
-

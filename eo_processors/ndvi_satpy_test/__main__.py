@@ -22,6 +22,7 @@ def main(input_file: str, area_wkt: str) -> "Dataset":
     del s['B08']
     return s
 
+
 processing_chain = ProcessingChain(instrument, processor, area_wkt, start, stop,
                                    cloud_cover=cloud_cover, graph_path=graph_path)
 for d in processing_chain:
